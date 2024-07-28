@@ -42,13 +42,10 @@ const bookSlotIntoDB = async (payload: TBooking) => {
 const getAllBookingsFromDB = async () => {
   return await BookingModel.find();
 };
-const getBookingsByUserFromDB = async (userId: string) => {
-  const bookings = await BookingModel.find({customer: userId });
-  return bookings;
-};
+
 
 export const BookingService = {
   bookSlotIntoDB,
   getAllBookingsFromDB,
-  getBookingsByUserFromDB,
+  
 };

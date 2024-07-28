@@ -7,13 +7,7 @@ import { USER_ROLE } from '../user/user.constants';
 
 const router = express.Router();
 
-//get all booking list by user
-router.get(
-    '/my-bookings',
-    authoRization(USER_ROLE.user),
-    BookingController.getUserBookings,
-  );
-  
+ 
 //get all booking list by admin
 router.get(
   '/',
@@ -25,7 +19,8 @@ router.post(
   '/',
   validateRequest(bookingValidationSchema),
   authoRization(USER_ROLE.user),
-  BookingController.bookSlot,
+  BookingController.bookSlot
 );
+
 
 export const bookingRoutes = router;

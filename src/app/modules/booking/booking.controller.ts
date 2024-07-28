@@ -30,19 +30,9 @@ const getAllBookings = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-// Controller for retrieving bookings for the authenticated user
-const getUserBookings = catchAsync(async (req: Request, res: Response) => {
-    const bookingList = await BookingService.getBookingsByUserFromDB(req.user.userId);
-    sendResponse(res, {
-        success: true,
-        message: 'User bookings retrieved successfully',
-        statusCode: httpStatus.OK,
-        data: bookingList,
-    });
-});
+
 
 export const BookingController = {
     bookSlot,
-    getAllBookings,
-    getUserBookings,
+    getAllBookings
 };

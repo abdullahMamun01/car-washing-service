@@ -6,11 +6,9 @@ import userRegisterValidationSchema from './user.validation';
 
 const router = express.Router();
 
-// router.get('/')
-
 router.post(
   '/signup',
-  // validateRequest(userRegisterValidationSchema),
+  validateRequest(userRegisterValidationSchema),
   userController.signupController,
 );
 

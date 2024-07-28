@@ -8,6 +8,9 @@ import { CarwashModel } from '../carWashService/carWashService.models';
 const createSlotIntoDb = async (payload: TSlot) => {
   //check the service already deleted 
   const service = await CarwashModel.findById(payload.service)
+  if(!service){
+    throw new AppError(httpStatus.NOT_FOUND , `this service: ${payload.service} not found!`)
+  }
   if (service?.isDeleted === true) {
     throw new AppError(httpStatus.FORBIDDEN, 'The specified car wash service is not accessible because it is marked as deleted.');
   }
@@ -66,6 +69,8 @@ const createSlotIntoDb = async (payload: TSlot) => {
   return await SlotModel.insertMany(slots);
 };
 
+
+//list of all available slot
 const availabilitySlotIntoDB = async (query: TSlotQUery) => {
   if (query.serviceId) {
     const slot = await SlotModel.findOne({ service: query.serviceId });
