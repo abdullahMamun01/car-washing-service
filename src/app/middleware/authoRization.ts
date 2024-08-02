@@ -9,11 +9,14 @@ import { TUserRole } from '../modules/user/user.interface';
 export const authoRization = (...requiredRole: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
+    if(!authHeader){
+      throw new AppError(httpStatus.UNAUTHORIZED, 'No authorization header provided');
+    }
 
-    const token = authHeader?.split(' ')[1];
+    const [scheme, token] = authHeader.split(' ');
     
-    if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'UNAUTHORIZED user!');
+    if (scheme !== 'Bearer' || !token) {
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid Bearer token format');
     }
 
     const authorizedUser = await verifyToken(token);

@@ -8,7 +8,7 @@ const signupController = catchAsync(async (req, res) => {
   const user = await userService.createUser(body);
   sendResponse(res, {
     success: true,
-    message: 'user register successfully',
+    message: 'User registered successfully',
     statusCode: httpStatus.OK,
     data: user,
   });

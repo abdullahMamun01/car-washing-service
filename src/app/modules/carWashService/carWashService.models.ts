@@ -6,7 +6,7 @@ const CarWashServiceSchema = new Schema<TCarWashService>({
   name: {
     type: String,
     required: true,
-    unique:true
+    unique: true
   },
   description: {
     type: String,
@@ -25,6 +25,6 @@ const CarWashServiceSchema = new Schema<TCarWashService>({
     required: true,
     default: false,
   },
-});
+}, { versionKey: false,timestamps:true });
 
-export const CarwashModel =  mongoose.model<TCarWashService>('CarWashService', CarWashServiceSchema);
+export const CarwashModel = mongoose.model<TCarWashService>('CarWashService', CarWashServiceSchema);

@@ -10,7 +10,7 @@ import { slotValidationSchema } from '../slot/solot.validation';
 const router = express.Router();
 
 //get all the  car washing service
-router.get('/', CarWashServiceController.getAllCarWashServices);
+router.get('/' , CarWashServiceController.getAllCarWashServices);
 //get the single car washing service by id
 router.get('/:serviceId', CarWashServiceController.getCarWashServiceById);
 

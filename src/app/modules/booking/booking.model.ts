@@ -23,7 +23,11 @@ const BookingSchema = new Schema<TBooking>({
   },
   vehicleBrand: { type: String, required: true },
   manufacturingYear: { type: Number, required: true },
+  vehicleModel: { type: String, required: true },
   registrationPlate: { type: String, required: true },
+} , {
+  timestamps:true ,
+  versionKey:false
 });
 
 export const BookingModel = model<TBooking>('Bookings', BookingSchema);

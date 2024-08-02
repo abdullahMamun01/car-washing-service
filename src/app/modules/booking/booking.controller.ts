@@ -13,7 +13,7 @@ const bookSlot = catchAsync(async (req: Request, res: Response) => {
 
     sendResponse(res, {
         success: true,
-        message: 'Slot booked successfully',
+        message: 'Booking successful',
         statusCode: httpStatus.OK,
         data: booking,
     });

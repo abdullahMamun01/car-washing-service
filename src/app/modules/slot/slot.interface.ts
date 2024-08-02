@@ -5,7 +5,7 @@ export type TSlot = {
     date: string,
     startTime: string ,
     endTime: string ,
-    isBooked?: 'booked' | 'available'
+    isBooked?: 'booked' | 'available' | 'canceled'
 }
 
 export type TSlotQUery = {

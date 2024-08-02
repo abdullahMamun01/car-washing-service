@@ -28,24 +28,41 @@ const bookSlotIntoDB = async (payload: TBooking) => {
     throw new AppError(CONFLICT, 'The slot is already booked! ');
   }
 
-  const booking = (await BookingModel.create(payload)).populate(
-    'customer service slot',
-  );
+  // const booking = (await BookingModel.create(payload)).populate(
+  //   'customer service slot',
+  // );
+  const booking = await BookingModel.create(payload)
+ 
   await SlotModel.findByIdAndUpdate(
     payload.slot,
     { isBooked: 'booked' },
     { new: true },
   );
-  return booking;
+
+  const populateBooking = await BookingModel.findById(booking._id).populate(
+    { path: 'customer', select: "name email phone address" }
+  ).populate(
+    { path: 'service', select: "name name description price duration isDeleted" }
+  ).populate(
+    { path: 'slot', select: "service date startTime endTime isBooked" }
+  )
+
+  return populateBooking;
 };
 
 const getAllBookingsFromDB = async () => {
-  return await BookingModel.find();
+  return await BookingModel.find().populate(
+    { path: 'customer', select: "name email phone address" }
+  ).populate(
+    { path: 'service', select: "name name description price duration isDeleted" }
+  ).populate(
+    { path: 'slot', select: "service date startTime endTime isBooked" }
+  );
 };
 
 
 export const BookingService = {
   bookSlotIntoDB,
   getAllBookingsFromDB,
-  
+
 };

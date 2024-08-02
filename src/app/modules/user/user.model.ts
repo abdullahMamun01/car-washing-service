@@ -17,7 +17,7 @@ const userSchema = new Schema<TUser>(
     password: {
       type: String,
       required: true,
-      select: 0
+      select: false
     },
     phone: {
       type: String,
@@ -36,6 +36,7 @@ const userSchema = new Schema<TUser>(
   },
   {
     timestamps: true,
+    versionKey:false
   },
 );
 
@@ -44,10 +45,7 @@ userSchema.pre('save' , async function(next){
   next()
 })
 
-userSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
-});
+
 
 // Create the Mongoose model
 const UserModel = model<TUser>('User', userSchema);
