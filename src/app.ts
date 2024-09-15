@@ -5,6 +5,7 @@ import { globalErrorHandler } from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
 import router from './app/routes';
 import handleEmptyResponse from './app/middleware/handleEmptyResponse';
+import fileUpload from 'express-fileupload'
 
 const app: Application = express();
 
@@ -12,6 +13,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(fileUpload())
 app.use(handleEmptyResponse);
 
 

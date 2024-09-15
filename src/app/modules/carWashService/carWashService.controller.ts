@@ -16,7 +16,8 @@ const createCarWashService = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllCarWashServices = catchAsync(async (req: Request, res: Response) => {
-  const services = await CarWashService.getAllServiceFromDb();
+  
+  const services = await CarWashService.getAllServiceFromDb(req.query);
   sendResponse(res, {
     message: 'Services retrieved successfully',
     success: true,

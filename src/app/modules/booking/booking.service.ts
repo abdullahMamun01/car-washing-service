@@ -7,10 +7,13 @@ import { SlotModel } from '../slot/slot.model';
 import { BookingModel } from './booking.model';
 
 const bookSlotIntoDB = async (payload: TBooking) => {
+
+
+
   const [user, service, slot] = await Promise.all([
-    UserModel.findById(payload.customer).exec(),
-    CarwashModel.findById(payload.service).exec(),
-    SlotModel.findById(payload.slot).exec(),
+   await UserModel.findById(payload.customer).exec(),
+   await CarwashModel.findById(payload.service.toString()).exec(),
+   await SlotModel.findById(payload.slot).exec(),
   ]);
 
   if (!user) {
@@ -46,7 +49,7 @@ const bookSlotIntoDB = async (payload: TBooking) => {
   ).populate(
     { path: 'slot', select: "service date startTime endTime isBooked" }
   )
-
+  
   return populateBooking;
 };
 

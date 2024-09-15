@@ -1,4 +1,6 @@
 import { Types } from "mongoose"
+import { TSlot } from "../slot/slot.interface";
+import { TCarWashService } from "../carWashService/carWashService.interface";
 
 type VehicleType =
   | "car"
@@ -25,15 +27,13 @@ export type TBooking = {
     registrationPlate: string
 }
 
-
-/* 
-
-{
-    "name": "Car Wash",
-    "description": "Professional car washing service",
-    "price": 50,
-    "duration": 60, // Duration in minutes
-    "isDeleted": false
+export type TBookingPopulated =  {
+  customer: string;
+  service: TCarWashService;         // After population
+  slot: TSlot;               // After population
+  vehicleType: VehicleType;
+  vehicleBrand: string;
+  manufacturingYear: number;
+  vehicleModel: string;
+  registrationPlate: string;
 }
-
-*/

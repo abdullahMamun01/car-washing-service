@@ -5,6 +5,7 @@ import { servicesRoutes } from '../modules/carWashService/carWashService.route';
 import { slotRoutes } from '../modules/slot/slot.route';
 import { bookingRoutes } from '../modules/booking/booking.route';
 import { myBookingRoute } from '../modules/myBooking/my-booking.route';
+import { paymentRoutes } from '../modules/payment/payment.route';
 
 const router = Router();
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/my-bookings',
     route: myBookingRoute,
   },
+  {
+    path: '/payment',
+    route: paymentRoutes,
+  },
+
 ];
 
 routes.forEach(({ path, route }) => {

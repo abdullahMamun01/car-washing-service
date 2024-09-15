@@ -1,7 +1,9 @@
 import httpStatus from 'http-status';
 import AppError from '../../error/AppError';
-import { TCarWashService } from './carWashService.interface';
+import { TCarWashService, TServiceQuery } from './carWashService.interface';
 import { CarwashModel } from './carWashService.models';
+
+
 
 const findServiceById = async (id: string) => {
   return await CarwashModel.findById(id).select('-__v');
@@ -12,10 +14,34 @@ const createCarWashServiceToDB = async (payload: TCarWashService) => {
   return carWashService;
 };
 
-const getAllServiceFromDb = async () => {
-  return await CarwashModel.find();
-};
 
+export const getAllServiceFromDb = async (query: TServiceQuery) => {
+
+  // Build the filtering/search criteria
+  const searchCriteria = query.search
+    ? {
+        isDeleted: false,
+        $or: [
+          { name: { $regex: query.search, $options: 'i' } },
+          { description: { $regex: query.search, $options: 'i' } },
+        ],
+      }
+    : { isDeleted: false }; 
+
+  // Build the sort criteria dynamically based on the query
+  const sortCriteria: { [key: string]: 1 | -1 } = {}; 
+
+  if (query.price) {
+    sortCriteria.price = query.price === 'asc' ? 1 : -1;
+  }
+
+  if (query.duration) {
+    sortCriteria.duration = query.duration === 'asc' ? 1 : -1;
+  }
+
+  // Fetch from the database with filter and sort options
+  return await CarwashModel.find(searchCriteria).sort(sortCriteria);
+};
 const getSingleServiceFromDb = async (id: string) => {
   const service = await findServiceById(id);
 

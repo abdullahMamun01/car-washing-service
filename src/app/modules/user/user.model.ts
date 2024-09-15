@@ -21,7 +21,11 @@ const userSchema = new Schema<TUser>(
     },
     phone: {
       type: String,
-      required: true,
+      required: false,
+    },
+    image: {
+      type: String,
+      required: false,
     },
     role: {
       type: String,

@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { TBooking } from './booking.interface';
 
+
 const BookingSchema = new Schema<TBooking>({
   customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   service: { type: Schema.Types.ObjectId, ref: 'CarWashService', required: true },
