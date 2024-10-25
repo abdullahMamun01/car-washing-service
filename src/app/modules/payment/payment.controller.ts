@@ -116,16 +116,18 @@ const confirmPaymentAndBooked = catchAsync(
     const parseMetaData = await parseStripeMetaData(checkoutSession.metadata);
     const bookingPayload = convertToTBooking(parseMetaData, userId);
     const booking = await BookingService.bookSlotIntoDB(bookingPayload);
-    const paymentPayloa: Payment = {
-      userId,
-      bookingId: booking?._id,
+
+    const paymentPayload: Payment = {
+      user: userId,
+      booking: booking?._id,
+      service: booking?.service,
       paymentIntentId: payment_intent.id,
       paymentMethod: checkoutSession.payment_method_types[0] as 'card',
       paymentStatus: checkoutSession.status,
       paymentDate: new Date(Date.now()),
       isProcessed: checkoutSession.status === 'complete',
     };
-    const payment = await paymentService.paymentSaveToDB(paymentPayloa);
+    const payment = await paymentService.paymentSaveToDB(paymentPayload);
 
     sendResponse(res, {
       success: true,

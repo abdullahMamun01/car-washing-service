@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 
 export type Payment = {
-  userId: mongoose.Types.ObjectId;
-  bookingId?: mongoose.Types.ObjectId;
+  user: mongoose.Types.ObjectId;
+  booking?: mongoose.Types.ObjectId;
+  service?: mongoose.Types.ObjectId,
   paymentIntentId: string;
   paymentMethod: 'card'  ;
   paymentStatus: 'pending' | 'complete' | 'failed' | 'refunded';

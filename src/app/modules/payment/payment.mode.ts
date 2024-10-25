@@ -2,15 +2,20 @@ import mongoose, { Schema } from "mongoose";
 import { Payment } from "./payment.type";
 
 const PaymentSchema = new Schema<Payment>({
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
-    bookingId: {
+    booking: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Bookings',
       required: true,
+    },
+    service: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'CarWashService',
+
     },
     paymentIntentId: {
       type: String,
@@ -35,5 +40,8 @@ const PaymentSchema = new Schema<Payment>({
       type: Boolean,
       default: false,
     },
+  } , {
+    timestamps: true , 
+    versionKey:false
   });
   export const PaymentModel = mongoose.model<Payment>('Payment', PaymentSchema);

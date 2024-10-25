@@ -31,7 +31,7 @@ const createSlotIntoDb = async (payload: TSlot) => {
     ],
   });
 
-  // console.log(conflictSlot)
+
   if (conflictSlot.length > 0) {
     throw new AppError(
       httpStatus.CONFLICT,
