@@ -11,11 +11,13 @@ const router = express.Router();
 
 router.get(
   '/service-overview',
+  authoRization(USER_ROLE.admin) ,
   analyticController.serviceAnalyticOverView
 );
 
 router.get(
   '/revenue',
+  authoRization(USER_ROLE.admin) ,
   analyticController.profitAnalytic
 );
 export const analyticRoutes = router;
