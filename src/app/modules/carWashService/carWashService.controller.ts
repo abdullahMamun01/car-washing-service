@@ -60,10 +60,23 @@ const deleteCarWashService = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const availableSericeDate  = catchAsync(async (req: Request, res: Response) => {
+  const serviceId = req.params.serviceId;
+  const service = await CarWashService.getAvailableServiceDatesFromToday(serviceId);
+  sendResponse(res, {
+    message: 'Service date retrieve successfully',
+    success: true,
+    statusCode: httpStatus.OK,
+    data: service,
+  });
+});
+
 export const CarWashServiceController = {
   createCarWashService,
   getAllCarWashServices,
   getCarWashServiceById,
   updateCarWashService,
-  deleteCarWashService
+  deleteCarWashService,
+  availableSericeDate
 };

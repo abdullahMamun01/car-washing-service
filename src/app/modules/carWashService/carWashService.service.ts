@@ -100,10 +100,38 @@ const deleteCarWashServiceFromDB = async (id: string) => {
   return updatedService;
 };
 
+
+const getAvailableServiceDatesFromToday = async (serviceId: string) => {
+  const service = await findServiceById(serviceId);
+
+  if (!service) {
+    throw new AppError(httpStatus.NOT_FOUND, `Service with ID ${serviceId} not found.`);
+  }
+
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
+
+  const availableDates = await SlotModel.find({
+    service: serviceId,
+    createdAt: { $gte: startOfToday }
+  }).lean()
+ 
+
+  return [...new Set(availableDates.map(slot => slot.date))];
+};
+
+
+
+
+
+
+
 export const CarWashService = {
   createCarWashServiceToDB,
   getAllServiceFromDb,
   getSingleServiceFromDb,
   updateService,
   deleteCarWashServiceFromDB,
+  getAvailableServiceDatesFromToday
 };
